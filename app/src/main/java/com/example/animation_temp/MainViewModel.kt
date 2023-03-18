@@ -1,6 +1,8 @@
 package com.example.animation_temp
 
 import android.animation.ValueAnimator
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.BaseInterpolator
 import android.view.animation.LinearInterpolator
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -28,32 +30,44 @@ class MainViewModel : ViewModel() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 // ネットワーク通信を想定したdelay
-                delay(3_000L)
+                delay(1_000L)
                 // response
-                val maxValue1 = 100
-                val currentValue1 = 5
+                val maxValue1 = 50
                 val maxValue2 = 50
+                val currentValue1 = 45
                 val currentValue2 = 45
 
                 _maxValueFlow1.value = maxValue1
                 _maxValueFlow2.value = maxValue2
                 withContext(Dispatchers.Main) {
                     createAndStartCountUpAnimation(currentValue1, _countUpFlow1)
-                    createAndStartCountUpAnimation(currentValue2, _countUpFlow2)
+                    createAndStartCountUpAnimation(currentValue2, _countUpFlow2, AccelerateInterpolator())
                 }
             }
 
         }
     }
 
-    private fun createAndStartCountUpAnimation(endValue: Int, countUpFlow: MutableStateFlow<Int>) {
+    fun onClickReAnimate() {
+        _maxValueFlow1.value = 0
+        _maxValueFlow2.value = 0
+        _countUpFlow1.value = 0
+        _countUpFlow2.value = 0
+        fetch()
+    }
+
+    private fun createAndStartCountUpAnimation(
+        endValue: Int,
+        countUpFlow: MutableStateFlow<Int>,
+        interpolator: BaseInterpolator = LinearInterpolator()
+    ) {
         ValueAnimator.ofInt(INITIAL_VALUE, endValue).apply {
             duration = ANIMATION_DURATION
             // アニメーションの線形非線形種類抜粋
             // LinearInterpolator : 線形
             // AccelerateInterpolator : 非線形　ゆっくり 〜 はやい
             // AccelerateDecelerateInterpolator : 非線形　はやい 〜 ゆっくり
-            interpolator = LinearInterpolator()
+            this.interpolator = interpolator
             addUpdateListener {
                 countUpFlow.value = it.animatedValue as Int
             }

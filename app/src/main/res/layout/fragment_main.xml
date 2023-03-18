@@ -17,53 +17,110 @@
         android:layout_width="match_parent"
         tools:context=".MainFragment">
 
-        <TextView
-            android:id="@+id/currentValue1"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/component1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:textSize="40sp"
-            android:text="@{viewModel.countUpFlow1.toString()}"
-            app:layout_constraintBottom_toTopOf="@id/currentValue2"
-            app:layout_constraintEnd_toStartOf="@id/maxValue1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="10" />
-
-        <TextView
-            android:id="@+id/maxValue1"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:textSize="40sp"
-            android:text="@{viewModel.maxValueFlow1.toString()}"
-            app:layout_constraintBottom_toTopOf="@id/maxValue2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/currentValue1"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="100" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/currentValue2"
+            <TextView
+                android:id="@+id/current_value1"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:minWidth="100dp"
+                android:textSize="40sp"
+                android:text="@{viewModel.countUpFlow1.toString()}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/max_value1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="10" />
+
+            <TextView
+                android:id="@+id/max_value1"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:minWidth="100dp"
+                android:textSize="40sp"
+                android:gravity="end"
+                android:text="@{viewModel.maxValueFlow1.toString()}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/current_value1"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="100" />
+
+            <ProgressBar
+                android:id="@+id/progress_bar1"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:max="@{viewModel.maxValueFlow1}"
+                android:progress="@{viewModel.countUpFlow1}"
+                app:layout_constraintStart_toStartOf="@id/current_value1"
+                app:layout_constraintEnd_toEndOf="@id/max_value1"
+                app:layout_constraintTop_toBottomOf="@id/current_value1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/component2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:textSize="40sp"
-            android:text="@{viewModel.countUpFlow2.toString()}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/maxValue1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/currentValue1"
-            tools:text="20" />
-
-        <TextView
-            android:id="@+id/maxValue2"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:textSize="40sp"
-            android:text="@{viewModel.maxValueFlow2.toString()}"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/currentValue2"
-            app:layout_constraintTop_toBottomOf="@id/maxValue1"
-            tools:text="200" />
+            app:layout_constraintTop_toBottomOf="@id/component1">
+
+            <TextView
+                android:id="@+id/current_value2"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:minWidth="100dp"
+                android:textSize="40sp"
+                android:text="@{viewModel.countUpFlow2.toString()}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/max_value2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="20" />
+
+            <TextView
+                android:id="@+id/max_value2"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:minWidth="100dp"
+                android:textSize="40sp"
+                android:gravity="end"
+                android:text="@{viewModel.maxValueFlow2.toString()}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/current_value2"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="200" />
+
+            <ProgressBar
+                android:id="@+id/progress_bar2"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:max="@{viewModel.maxValueFlow2}"
+                android:progress="@{viewModel.countUpFlow2}"
+                app:layout_constraintStart_toStartOf="@id/current_value2"
+                app:layout_constraintEnd_toEndOf="@id/max_value2"
+                app:layout_constraintTop_toBottomOf="@id/current_value2" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/component2"
+            app:layout_constraintEnd_toEndOf="@id/component2"
+            app:layout_constraintTop_toBottomOf="@id/component2"
+            android:onClick="@{() -> viewModel.onClickReAnimate()}"
+            android:text="re Animate" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
