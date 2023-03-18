@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.animation_temp.MainViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        tools:context=".MainFragment">
+
+        <TextView
+            android:id="@+id/currentValue1"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="40sp"
+            android:text="@{viewModel.countUpFlow1.toString()}"
+            app:layout_constraintBottom_toTopOf="@id/currentValue2"
+            app:layout_constraintEnd_toStartOf="@id/maxValue1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="10" />
+
+        <TextView
+            android:id="@+id/maxValue1"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="40sp"
+            android:text="@{viewModel.maxValueFlow1.toString()}"
+            app:layout_constraintBottom_toTopOf="@id/maxValue2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/currentValue1"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="100" />
+
+        <TextView
+            android:id="@+id/currentValue2"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="40sp"
+            android:text="@{viewModel.countUpFlow2.toString()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/maxValue1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/currentValue1"
+            tools:text="20" />
+
+        <TextView
+            android:id="@+id/maxValue2"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="40sp"
+            android:text="@{viewModel.maxValueFlow2.toString()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/currentValue2"
+            app:layout_constraintTop_toBottomOf="@id/maxValue1"
+            tools:text="200" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
